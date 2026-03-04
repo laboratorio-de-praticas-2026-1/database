@@ -6,7 +6,7 @@
 
 ```bash
 # Clone o projeto
-git clone <repository-url>
+git clone https://github.com/laboratorio-de-praticas-2026-1/database.git
 cd <project-directory>
 
 # Inicie os serviços
