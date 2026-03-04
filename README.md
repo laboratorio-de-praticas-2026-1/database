@@ -1,5 +1,14 @@
 # Guia de Modificação do Banco de Dados com Migrations
 
+## Informações sobre o Banco
+
+### 1. Versão do banco:
+- O banco de dados local (feito via docker compose) roda na engine `mysql:8.0`
+- O banco de dados de desenvolvimento (hospedado no AwaysData) roda na engine `mariadb:10.11`
+
+### 2. Gerenciamento do banco:
+- O gerenciamento do banco é feito usando `migrations` (que funciona como um versionamento). As migrations são criadas usando o `PrismaORM`
+
 ## Fluxo de Processo
 
 ### 1. Setup Inicial
