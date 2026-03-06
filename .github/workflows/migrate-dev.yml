@@ -18,12 +18,12 @@ jobs:
 
       - run: npm ci
 
-      - name: Seed Dev Database
-        run: npx prisma db seed
-        env:
-          DATABASE_URL: ${{ secrets.DATABASE_URL_DEV }}
-
       - name: Apply migrations on Dev
         run: npx prisma migrate deploy
         env:
           DATABASE_URL: ${{secrets.DATABASE_URL_DEV}}
+
+      - name: Seed Dev Database
+        run: npx prisma db seed
+        env:
+          DATABASE_URL: ${{ secrets.DATABASE_URL_DEV }}
