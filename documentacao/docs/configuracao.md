@@ -85,16 +85,26 @@ npm install
 
 ## 5. Aplicar as Migrações
 
-Com o container rodando, aplique as migrações para criar as tabelas no banco:
+Com o container rodando, aplique as migrações para criar as tabelas no banco.
+
+### Via `prisma migrate deploy` (ambientes externos ao Docker)
 
 ```bash
+npx prisma generate
 npx prisma migrate deploy
 ```
 
-!!! note "Ambientes de desenvolvimento"
-Em desenvolvimento, você pode usar `npx prisma migrate dev` para criar novas migrações interativamente.
+!!! warning "Atenção"
+Ao usar `prisma migrate deploy`, o Prisma Client **não é gerado automaticamente**. É necessário executar `npx prisma generate` antes para que o client esteja atualizado.
 
----
+### Via `prisma migrate dev` (ambiente Docker local)
+
+```bash
+npx prisma migrate dev
+```
+
+!!! note "Geração automática"
+O comando `prisma migrate dev` já executa o `prisma generate` automaticamente ao final. Não é necessário rodá-lo separadamente.
 
 ## 6. Popular o Banco com Dados Iniciais (Seed)
 
@@ -120,17 +130,18 @@ Acesse em: **http://localhost:5555**
 
 ## Resumo dos Comandos
 
-| Comando                     | Descrição                            |
-| --------------------------- | ------------------------------------ |
-| `docker compose up -d`      | Sobe o container MySQL em background |
-| `docker compose down`       | Para o container                     |
-| `docker compose down -v`    | Para o container e apaga os dados    |
-| `npm install`               | Instala as dependências do projeto   |
-| `npx prisma migrate deploy` | Aplica as migrações no banco         |
-| `npx prisma migrate dev`    | Cria nova migração (desenvolvimento) |
-| `npx prisma db seed`        | Popula o banco com dados iniciais    |
-| `npx prisma studio`         | Abre o painel visual do Prisma       |
-| `npx prisma generate`       | Gera o Prisma Client                 |
+| Comando                     | Descrição                                                   |
+| --------------------------- | ----------------------------------------------------------- |
+| `docker compose up -d`      | Sobe o container MySQL em background                        |
+| `docker compose down`       | Para o container                                            |
+| `docker compose down -v`    | Para o container e apaga os dados                           |
+| `npm install`               | Instala as dependências do projeto                          |
+| `npx prisma generate`       | Gera o Prisma Client (necessário antes do `migrate deploy`) |
+| `npx prisma migrate deploy` | Aplica as migrações no banco (requer `generate` antes)      |
+| `npx prisma migrate dev`    | Aplica/cria migrações e gera o client automaticamente       |
+| `npx prisma db seed`        | Popula o banco com dados iniciais                           |
+| `npx prisma studio`         | Abre o painel visual do Prisma                              |
+| `npx prisma generate`       | Gera o Prisma Client                                        |
 
 ---
 

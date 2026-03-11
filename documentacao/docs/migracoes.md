@@ -2,11 +2,26 @@
 
 O Prisma gerencia as migrações do banco de dados na pasta `prisma/migrations/`. Cada migração possui um diretório com timestamp e nome descritivo, contendo o arquivo `migration.sql` com as alterações aplicadas.
 
-Para aplicar todas as migrações em ordem:
+Para aplicar todas as migrações em ordem, o comando utilizado depende do ambiente:
+
+**Com `prisma migrate deploy`** (fora do Docker):
 
 ```bash
+npx prisma generate
 npx prisma migrate deploy
 ```
+
+!!! warning "Atenção"
+`prisma migrate deploy` não gera o Prisma Client automaticamente. Execute `npx prisma generate` antes.
+
+**Com `prisma migrate dev`** (ambiente Docker local):
+
+```bash
+npx prisma migrate dev
+```
+
+!!! note "Geração automática"
+`prisma migrate dev` executa o `prisma generate` automaticamente — não é necessário rodá-lo separadamente.
 
 ---
 
