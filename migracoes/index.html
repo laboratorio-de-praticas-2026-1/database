@@ -16,7 +16,7 @@
         
       
       
-      <link rel="icon" href="../assets/images/favicon.png">
+      <link rel="icon" href="../assets/favicon.ico">
       <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.5">
     
     
@@ -65,7 +65,7 @@
     
     
     
-    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="blue" data-md-color-accent="light-blue">
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="custom" data-md-color-accent="custom">
   
     
     <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
@@ -90,8 +90,7 @@
   <nav class="md-header__inner md-grid" aria-label="Cabeçalho">
     <a href=".." title="Despachante Bortone - Documentação do Banco de Dados" class="md-header__button md-logo" aria-label="Despachante Bortone - Documentação do Banco de Dados" data-md-component="logo">
       
-  
-  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+  <img src="../assets/logo.svg" alt="logo">
 
     </a>
     <label class="md-header__button md-icon" for="__drawer">
@@ -121,7 +120,7 @@
     
     
     
-    <input class="md-option" data-md-color-media="" data-md-color-scheme="default" data-md-color-primary="blue" data-md-color-accent="light-blue"  aria-hidden="true"  type="radio" name="__palette" id="__palette_0">
+    <input class="md-option" data-md-color-media="" data-md-color-scheme="default" data-md-color-primary="custom" data-md-color-accent="custom"  aria-hidden="true"  type="radio" name="__palette" id="__palette_0">
     
   
 </form>
@@ -310,8 +309,7 @@
   <label class="md-nav__title" for="__drawer">
     <a href=".." title="Despachante Bortone - Documentação do Banco de Dados" class="md-nav__button md-logo" aria-label="Despachante Bortone - Documentação do Banco de Dados" data-md-component="logo">
       
-  
-  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+  <img src="../assets/logo.svg" alt="logo">
 
     </a>
     Despachante Bortone - Documentação do Banco de Dados
@@ -590,10 +588,10 @@
 <a id="__codelineno-1-30" name="__codelineno-1-30" href="#__codelineno-1-30"></a><span class="o">**</span><span class="n">Ajuste</span><span class="w"> </span><span class="n">de</span><span class="w"> </span><span class="n">tipo</span><span class="o">**</span><span class="w"> </span><span class="k">no</span><span class="w"> </span><span class="n">campo</span><span class="w"> </span><span class="o">`</span><span class="n">name</span><span class="o">`</span><span class="w"> </span><span class="n">da</span><span class="w"> </span><span class="n">tabela</span><span class="w"> </span><span class="o">`</span><span class="k">User</span><span class="o">`</span><span class="w"> </span><span class="p">(</span><span class="n">gerada</span><span class="w"> </span><span class="n">pelo</span><span class="w"> </span><span class="k">template</span><span class="p">).</span>
 <a id="__codelineno-1-31" name="__codelineno-1-31" href="#__codelineno-1-31"></a>
 <a id="__codelineno-1-32" name="__codelineno-1-32" href="#__codelineno-1-32"></a><span class="o">???</span><span class="w"> </span><span class="n">note</span><span class="w"> </span><span class="ss">&quot;SQL&quot;</span>
-<a id="__codelineno-1-33" name="__codelineno-1-33" href="#__codelineno-1-33"></a><span class="o">``</span><span class="k">sql</span>
+<a id="__codelineno-1-33" name="__codelineno-1-33" href="#__codelineno-1-33"></a><span class="w">    </span><span class="o">```</span><span class="k">sql</span>
 <a id="__codelineno-1-34" name="__codelineno-1-34" href="#__codelineno-1-34"></a><span class="w">    </span><span class="c1">-- AlterTable</span>
 <a id="__codelineno-1-35" name="__codelineno-1-35" href="#__codelineno-1-35"></a><span class="w">    </span><span class="k">ALTER</span><span class="w"> </span><span class="k">TABLE</span><span class="w"> </span><span class="o">`</span><span class="k">User</span><span class="o">`</span><span class="w"> </span><span class="k">MODIFY</span><span class="w"> </span><span class="o">`</span><span class="n">name</span><span class="o">`</span><span class="w"> </span><span class="nb">VARCHAR</span><span class="p">(</span><span class="mi">255</span><span class="p">)</span><span class="w"> </span><span class="k">NULL</span><span class="p">;</span>
-<a id="__codelineno-1-36" name="__codelineno-1-36" href="#__codelineno-1-36"></a><span class="w">    </span><span class="o">``</span>
+<a id="__codelineno-1-36" name="__codelineno-1-36" href="#__codelineno-1-36"></a><span class="w">    </span><span class="o">```</span>
 <a id="__codelineno-1-37" name="__codelineno-1-37" href="#__codelineno-1-37"></a>
 <a id="__codelineno-1-38" name="__codelineno-1-38" href="#__codelineno-1-38"></a><span class="c1">---</span>
 <a id="__codelineno-1-39" name="__codelineno-1-39" href="#__codelineno-1-39"></a>
@@ -761,10 +759,10 @@
 <a id="__codelineno-1-201" name="__codelineno-1-201" href="#__codelineno-1-201"></a><span class="o">**</span><span class="n">Remoção</span><span class="w"> </span><span class="n">temporária</span><span class="o">**</span><span class="w"> </span><span class="n">da</span><span class="w"> </span><span class="n">tabela</span><span class="w"> </span><span class="o">`</span><span class="n">empresa</span><span class="o">`</span><span class="w"> </span><span class="n">para</span><span class="w"> </span><span class="n">recriação</span><span class="w"> </span><span class="n">limpa</span><span class="w"> </span><span class="n">na</span><span class="w"> </span><span class="n">migração</span><span class="w"> </span><span class="n">seguinte</span><span class="p">.</span>
 <a id="__codelineno-1-202" name="__codelineno-1-202" href="#__codelineno-1-202"></a>
 <a id="__codelineno-1-203" name="__codelineno-1-203" href="#__codelineno-1-203"></a><span class="o">???</span><span class="w"> </span><span class="n">note</span><span class="w"> </span><span class="ss">&quot;SQL&quot;</span>
-<a id="__codelineno-1-204" name="__codelineno-1-204" href="#__codelineno-1-204"></a><span class="o">``</span><span class="k">sql</span>
+<a id="__codelineno-1-204" name="__codelineno-1-204" href="#__codelineno-1-204"></a><span class="w">    </span><span class="o">```</span><span class="k">sql</span>
 <a id="__codelineno-1-205" name="__codelineno-1-205" href="#__codelineno-1-205"></a><span class="w">    </span><span class="c1">-- DropTable</span>
 <a id="__codelineno-1-206" name="__codelineno-1-206" href="#__codelineno-1-206"></a><span class="w">    </span><span class="k">DROP</span><span class="w"> </span><span class="k">TABLE</span><span class="w"> </span><span class="o">`</span><span class="n">empresa</span><span class="o">`</span><span class="p">;</span>
-<a id="__codelineno-1-207" name="__codelineno-1-207" href="#__codelineno-1-207"></a><span class="w">    </span><span class="o">``</span>
+<a id="__codelineno-1-207" name="__codelineno-1-207" href="#__codelineno-1-207"></a><span class="w">    </span><span class="o">```</span>
 <a id="__codelineno-1-208" name="__codelineno-1-208" href="#__codelineno-1-208"></a>
 <a id="__codelineno-1-209" name="__codelineno-1-209" href="#__codelineno-1-209"></a><span class="c1">---</span>
 <a id="__codelineno-1-210" name="__codelineno-1-210" href="#__codelineno-1-210"></a>
@@ -773,7 +771,7 @@
 <a id="__codelineno-1-213" name="__codelineno-1-213" href="#__codelineno-1-213"></a><span class="o">**</span><span class="n">Recriação</span><span class="o">**</span><span class="w"> </span><span class="n">da</span><span class="w"> </span><span class="n">tabela</span><span class="w"> </span><span class="o">`</span><span class="n">empresa</span><span class="o">`</span><span class="w"> </span><span class="n">com</span><span class="w"> </span><span class="n">a</span><span class="w"> </span><span class="n">estrutura</span><span class="w"> </span><span class="k">final</span><span class="w"> </span><span class="n">correta</span><span class="p">.</span>
 <a id="__codelineno-1-214" name="__codelineno-1-214" href="#__codelineno-1-214"></a>
 <a id="__codelineno-1-215" name="__codelineno-1-215" href="#__codelineno-1-215"></a><span class="o">???</span><span class="w"> </span><span class="n">note</span><span class="w"> </span><span class="ss">&quot;SQL&quot;</span>
-<a id="__codelineno-1-216" name="__codelineno-1-216" href="#__codelineno-1-216"></a><span class="o">``</span><span class="k">sql</span>
+<a id="__codelineno-1-216" name="__codelineno-1-216" href="#__codelineno-1-216"></a><span class="w">    </span><span class="o">```</span><span class="k">sql</span>
 <a id="__codelineno-1-217" name="__codelineno-1-217" href="#__codelineno-1-217"></a><span class="w">    </span><span class="c1">-- CreateTable</span>
 <a id="__codelineno-1-218" name="__codelineno-1-218" href="#__codelineno-1-218"></a><span class="w">    </span><span class="k">CREATE</span><span class="w"> </span><span class="k">TABLE</span><span class="w"> </span><span class="o">`</span><span class="n">empresa</span><span class="o">`</span><span class="w"> </span><span class="p">(</span>
 <a id="__codelineno-1-219" name="__codelineno-1-219" href="#__codelineno-1-219"></a><span class="w">        </span><span class="o">`</span><span class="n">id</span><span class="o">`</span><span class="w"> </span><span class="nb">INTEGER</span><span class="w"> </span><span class="k">NOT</span><span class="w"> </span><span class="k">NULL</span><span class="w"> </span><span class="n">AUTO_INCREMENT</span><span class="p">,</span>
@@ -787,7 +785,7 @@
 <a id="__codelineno-1-227" name="__codelineno-1-227" href="#__codelineno-1-227"></a><span class="w">        </span><span class="o">`</span><span class="n">site</span><span class="o">`</span><span class="w"> </span><span class="nb">VARCHAR</span><span class="p">(</span><span class="mi">100</span><span class="p">)</span><span class="w"> </span><span class="k">NULL</span><span class="p">,</span>
 <a id="__codelineno-1-228" name="__codelineno-1-228" href="#__codelineno-1-228"></a><span class="w">        </span><span class="k">PRIMARY</span><span class="w"> </span><span class="k">KEY</span><span class="w"> </span><span class="p">(</span><span class="o">`</span><span class="n">id</span><span class="o">`</span><span class="p">)</span>
 <a id="__codelineno-1-229" name="__codelineno-1-229" href="#__codelineno-1-229"></a><span class="w">    </span><span class="p">)</span><span class="w"> </span><span class="k">DEFAULT</span><span class="w"> </span><span class="nb">CHARACTER</span><span class="w"> </span><span class="k">SET</span><span class="w"> </span><span class="n">utf8mb4</span><span class="w"> </span><span class="k">COLLATE</span><span class="w"> </span><span class="n">utf8mb4_unicode_ci</span><span class="p">;</span>
-<a id="__codelineno-1-230" name="__codelineno-1-230" href="#__codelineno-1-230"></a><span class="w">    </span><span class="o">``</span>
+<a id="__codelineno-1-230" name="__codelineno-1-230" href="#__codelineno-1-230"></a><span class="w">    </span><span class="o">```</span>
 <a id="__codelineno-1-231" name="__codelineno-1-231" href="#__codelineno-1-231"></a>
 <a id="__codelineno-1-232" name="__codelineno-1-232" href="#__codelineno-1-232"></a><span class="c1">---</span>
 <a id="__codelineno-1-233" name="__codelineno-1-233" href="#__codelineno-1-233"></a>
