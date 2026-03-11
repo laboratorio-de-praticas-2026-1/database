@@ -1,0 +1,37 @@
+site_name: Despachante Bortone - Documentação do Banco de Dados
+
+markdown_extensions:
+  - pymdownx.details
+  - pymdownx.superfences
+  - admonition
+  - pymdownx.highlight:
+      anchor_linenums: true
+  - pymdownx.inlinehilite
+  - tables
+  - attr_list
+
+theme:
+  name: material
+  language: pt
+  favicon: assets/favicon.ico
+  logo: assets/logo.svg
+  palette:
+    - scheme: default
+      primary: custom
+      accent: custom
+  features:
+    - navigation.tabs
+    - navigation.sections
+    - navigation.expand
+    - content.code.copy
+    - toc.integrate
+
+extra_css:
+  - stylesheets/custom.css
+
+nav:
+  - Início: index.md
+  - Configuração do Ambiente: configuracao.md
+  - Modelagem do Banco de Dados: modelagem.md
+  - Dados Iniciais (Seed): seed.md
+  - Histórico de Migrações: migracoes.md
