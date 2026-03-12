@@ -5,8 +5,7 @@ Este documento descreve o fluxo de trabalho adotado neste repositório. Siga as 
 main
 └── develop
       ├── chore/                    ← tarefas técnicas globais
-      └── release/entrega-DD-MM     ← entrega do período
-              └── {issue}-{descricao}  ← sua branch (criada pela issue)
+      └── {issue}-{descricao}  ← sua branch (criada pela issue)
 
 - Passo a Passo
 1. Encontre sua Issue
@@ -23,7 +22,6 @@ No painel lateral direito da issue, clique em "Create a branch" na seção Devel
 Escolha a origem correta:
 
 Situação                | Branch de origem
-Feature de uma entrega	| release/entrega-DD-MM
 Tarefa técnica global	| develop
 
 Selecione a branch de origem no campo "Branch source" e clique em "Create branch".
@@ -56,10 +54,6 @@ ____________________________________________________
 6. Abra o Pull Request
 Na aba Pull Requests, clique em New pull request e configure:
 
-Campo	          |  Valor
-base (esquerda)   |	branch pai (release/entrega-DD-MM ou develop)
-compare (direita) |	sua branch
-
 - No corpo do PR: 
 Descreva com detalhes o que foi feito
 Referencie a issue com closes #numero para fechá-la automaticamente
@@ -68,13 +62,13 @@ Referencie a issue com closes #numero para fechá-la automaticamente
 Solicite a review do seu PO ou PM na aba Reviewers 
 
 - Fluxo de Merges
-sua branch  →  release/entrega-DD-MM  →  develop  →  main
+sua branch  →   develop  →  main
 chore/      →  develop  →  main
 
-O merge entre os níveis acima é responsabilidade do PO/PM. Sua responsabilidade é abrir o PR da sua branch para a release correspondente.
+O merge entre os níveis acima é responsabilidade do PO/PM. Sua responsabilidade é abrir o PR da sua branch.
 
 - Regras Gerais
-1. Nunca faça push direto em main, develop ou release/*
+1. Nunca faça push direto em main, develop
 2. Todo merge deve ser feito via Pull Request com ao menos 1 aprovação
 3. Sempre crie sua branch a partir da Issue para manter o rastreamento automático
-4. Atualize sua branch com a base antes de abrir o PR para evitar 
+4. Atualize sua branch com a base antes de abrir o PR para evitar conflito
