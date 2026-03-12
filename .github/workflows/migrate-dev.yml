@@ -1,0 +1,32 @@
+name: Migrate Dev Database
+on:
+  push:
+    branches:
+      - develop
+  workflow_dispatch:
+
+jobs:
+  migrate:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v6
+
+      - uses: actions/setup-node@v6
+        with:
+          node-version: 25
+          cache: 'npm'
+
+      - run: npm ci
+
+      - name: Generate Prisma Client
+        run: npx prisma generate
+
+      - name: Apply migrations on Dev
+        run: npx prisma migrate deploy
+        env:
+          DATABASE_URL: ${{secrets.DATABASE_URL_DEV}}
+
+      - name: Seed Dev Database
+        run: npx prisma db seed
+        env:
+          DATABASE_URL: ${{ secrets.DATABASE_URL_DEV }}
