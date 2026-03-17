@@ -139,7 +139,7 @@ model Veiculo {
 model Solicitacao {
   id                 Int                 @id @default(autoincrement())
   usuarioId          Int                 @map("usuario_id")
-  veiculoId          Int                 @map("veiculo_id")
+  veiculoId          Int?                 @map("veiculo_id")
   servicoId          Int                 @map("servico_id")
   status             StatusSolicitacao   @default(recebido)
   observacaoCliente  String?             @map("observacao_cliente") @db.Text
@@ -148,7 +148,7 @@ model Solicitacao {
   dataConclusao      DateTime?           @map("data_conclusao")
 
   usuario            Usuario             @relation(fields: [usuarioId], references: [id], onDelete: Cascade)
-  veiculo            Veiculo             @relation(fields: [veiculoId], references: [id], onDelete: Cascade)
+  veiculo            Veiculo?             @relation(fields: [veiculoId], references: [id], onDelete: Cascade)
   servico            Servico             @relation(fields: [servicoId], references: [id])
   documentos         DocumentoSolicitacao[]
 
