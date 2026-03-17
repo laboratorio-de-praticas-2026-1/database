@@ -1,4 +1,71 @@
-# Guia de Modificação do Banco de Dados com Migrations
+# Documentação de Banco de Dados
+
+---
+
+# Para os desenvolvedores: 
+## Conectividade e Diferenciação de Ambientes
+
+Antes de iniciar qualquer modificação, é fundamental entender onde você está conectado e as permissões de cada ambiente para evitar incidentes.
+
+### 1. Banco Local (Docker)
+* **Finalidade:** Ambiente isolado para desenvolvimento e testes de estrutura.
+* **Conexão:** Geralmente via `localhost:3306` (conforme configurado no `compose.yml`).
+* **Privilégios:** **Totais**. Você tem permissão para criar, alterar e deletar tabelas.
+* **Diferença Técnica:** Roda na engine **MySQL 8.0**.
+
+### 2. Banco de Desenvolvimento (AlwaysData)
+* **Finalidade:** Ambiente compartilhado para integração de código e testes com massa de dados.
+* **Conexão:** Host remoto do AlwaysData (ex: `@banco_dev`).
+* **Restrições Rígidas:** * **Proibido:** Realizar alterações estruturais (DDL) manualmente ou via `migrate dev`. O esquema é alterado apenas via pipeline automática após aprovação.
+    * **Permitido:** Apenas testes de criação e manipulação de dados (DML - `INSERT`, `UPDATE`, `SELECT`).
+* **Diferença Técnica:** Roda na engine **MariaDB 10.11**.
+
+
+## Fluxo de desenvolvimento:
+### 1. Conecte-se ao banco de dados:
+- Se for realizar testes de criação de dados ou de consulta (seja por meio do SQL ou via a API), utilize o banco de desenvolvimento `AlwaysData`. As credenciais de acesso estão disponíves com seu PM/PO
+- Se for realizar testes que necessitem de mudanças nas tabelas (para futuramente solicitar a mudança ao time de BD) utilize o banco local em `docker`
+
+Para se conectar ao banco, utilize uma ferramenta de banco de dados como o `HeidiSQL`, `DataGrip`, `dBeaver` ou `MySQL Workbench`
+
+Dentro da ferramenta, crie uma nova conexão e insira as credenciais do banco irá utilizar:
+![img.png](documentacao/img.png)
+
+### 2. Realize os testes
+Com os testes devidamente realizados, altere os dados de conexão no arquivo `.env` do projeto:
+```
+# BANCO LOCAL (DEVE SER CRIADO USANDO O COMPOSE DO REPOSITORIO DATABASE) NÃO PRECISA DE ALTERAÇÃO
+
+#DATABASE_HOST=localhost
+#DATABASE_USERNAME=root
+#DATABASE_PASSWORD=rootpassword
+#DATABASE_DB=app_db
+#DATABASE_PORT=3306
+
+# BANCO DE DESENVOLVIMENTO
+
+DATABASE_HOST=mysql-banco-dev-lp.alwaysdata.net
+
+# ADICIONE AS CREDENCIAIS
+DATABASE_USERNAME=USERNAME
+DATABASE_PASSWORD=SENHA
+
+DATABASE_DB=banco-dev-lp_bortonedev
+DATABASE_PORT=3306
+
+
+```
+
+
+## Regras de Governança
+
+> **Qualquer mudança necessária deve ser obrigatoriamente testada no banco LOCAL primeiro.**
+> 
+> Após a validação local, a alteração deve ser solicitada à equipe de Banco de Dados via **Issue** para aprovação. O banco de desenvolvimento nunca deve ser alterado estruturalmente por usuários comuns.
+
+---
+
+# Guia de Modificação do Banco de Dados com Migrations (obs: utilizado somente pela equipe de Database)
 
 ## Informações sobre o Banco
 
