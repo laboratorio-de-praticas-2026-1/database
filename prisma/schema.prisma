@@ -63,12 +63,15 @@ model Blog {
 model Empresa {
   id           Int     @id @default(autoincrement())
   nomeFantasia String? @map("nome_fantasia") @db.VarChar(100)
+  tipo         String? @db.VarChar(50)
   cnpj         String? @db.VarChar(20)
   telefone     String? @db.VarChar(20)
   email        String? @db.VarChar(100)
   endereco     String? @db.VarChar(255)
   cidade       String? @db.VarChar(100)
   estado       String? @db.VarChar(2)
+  latitude     Float?
+  longitude    Float?
   site         String? @db.VarChar(100)
 
   @@map("empresa")
