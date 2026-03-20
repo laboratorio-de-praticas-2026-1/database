@@ -176,3 +176,18 @@ model DocumentoSolicitacao {
 
   @@map("documento_solicitacao")
 }
+
+model FAQ {
+  id       Int     @id @default(autoincrement())
+  pergunta String
+  resposta String
+  status   Boolean @default(true)  
+}
+
+model emails_enviados {
+  id             Int      @id @default(autoincrement())
+  nome_usuario   String   @db.VarChar(255)
+  email_usuario  String   @db.VarChar(255)
+  texto_digitado String   @db.Text
+  data_envio     DateTime @default(now())
+}
