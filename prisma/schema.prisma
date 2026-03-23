@@ -87,6 +87,7 @@ model Faq {
   id       Int     @id @default(autoincrement())
   pergunta String? @db.Text
   resposta String? @db.Text
+  status   Boolean @default(true)
 
   @@map("faq")
 }
@@ -175,4 +176,14 @@ model DocumentoSolicitacao {
   solicitacao     Solicitacao              @relation(fields: [solicitacaoId], references: [id], onDelete: Cascade)
 
   @@map("documento_solicitacao")
+}
+
+
+model emails_enviados {
+  id             Int      @id @default(autoincrement())
+  nome_usuario   String   @db.VarChar(255)
+  email_usuario  String   @db.VarChar(255)
+  assunto        String   @db.VarChar(255) 
+  texto_digitado String   @db.Text
+  data_envio     DateTime @default(now())
 }
