@@ -62,6 +62,7 @@ model Blog {
   conteudo       String?  @db.Text
   dataPublicacao DateTime? @db.Date @map("data_publicacao")
   urlImagem      String?  @map("url_imagem")
+  ativo          Boolean @default(true)
 
   @@map("blog")
 }
