@@ -43,6 +43,14 @@ enum TipoEmpresa {
   detran
 }
 
+enum CategoriaFaq {
+  documentacao
+  regularizacao
+  manutencao
+  outros
+  frequentes
+}
+
 //
 // TABELAS
 //
@@ -89,6 +97,7 @@ model Faq {
   pergunta String? @db.Text
   resposta String? @db.Text
   status   Boolean @default(true)
+  categoria CategoriaFaq?
 
   @@map("faq")
 }
