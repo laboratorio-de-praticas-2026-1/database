@@ -86,38 +86,38 @@ model Banner {
 }
 
 model Blog {
-  id             Int      @id @default(autoincrement())
-  titulo         String?  @db.VarChar(150)
-  conteudo       String?  @db.Text
-  dataPublicacao DateTime? @db.Date @map("data_publicacao")
-  urlImagem      String?  @map("url_imagem")
-  ativo          Boolean @default(true)
+  id             Int       @id @default(autoincrement())
+  titulo         String?   @db.VarChar(150)
+  conteudo       String?   @db.Text
+  dataPublicacao DateTime? @map("data_publicacao") @db.Date
+  urlImagem      String?   @map("url_imagem")
+  ativo          Boolean   @default(true)
 
   @@map("blog")
 }
 
 model Empresa {
-  id           Int     @id @default(autoincrement())
-  nomeFantasia String? @map("nome_fantasia") @db.VarChar(100)
+  id           Int          @id @default(autoincrement())
+  nomeFantasia String?      @map("nome_fantasia") @db.VarChar(100)
   tipo         TipoEmpresa?
-  cnpj         String? @db.VarChar(20)
-  telefone     String? @db.VarChar(20)
-  email        String? @db.VarChar(100)
-  endereco     String? @db.VarChar(255)
-  cidade       String? @db.VarChar(100)
-  estado       String? @db.VarChar(2)
-  latitude     String?  @db.VarChar(20)
-  longitude    String?  @db.VarChar(20)
-  site         String? @db.VarChar(100)
+  cnpj         String?      @db.VarChar(20)
+  telefone     String?      @db.VarChar(20)
+  email        String?      @db.VarChar(100)
+  endereco     String?      @db.VarChar(255)
+  cidade       String?      @db.VarChar(100)
+  estado       String?      @db.VarChar(2)
+  latitude     String?      @db.VarChar(20)
+  longitude    String?      @db.VarChar(20)
+  site         String?      @db.VarChar(100)
 
   @@map("empresa")
 }
 
 model Faq {
-  id       Int     @id @default(autoincrement())
-  pergunta String? @db.Text
-  resposta String? @db.Text
-  status   Boolean @default(true)
+  id        Int           @id @default(autoincrement())
+  pergunta  String?       @db.Text
+  resposta  String?       @db.Text
+  status    Boolean       @default(true)
   categoria CategoriaFaq?
 
   @@map("faq")
@@ -133,46 +133,46 @@ model Publicidade {
 }
 
 model Servico {
-  id                 Int      @id @default(autoincrement())
-  nome               String   @db.VarChar(100)
-  descricao          String?  @db.Text
-  valorBase          Decimal? @map("valor_base") @db.Decimal(10, 2)
-  prazoEstimadoDias  Int?     @map("prazo_estimado_dias")
-  ativo              Boolean  @default(true)
+  id                Int      @id @default(autoincrement())
+  nome              String   @db.VarChar(100)
+  descricao         String?  @db.Text
+  valorBase         Decimal? @map("valor_base") @db.Decimal(10, 2)
+  prazoEstimadoDias Int?     @map("prazo_estimado_dias")
+  ativo             Boolean  @default(true)
 
-  solicitacoes       Solicitacao[]
-  debitoServicos     DebitoServico[]
+  solicitacoes   Solicitacao[]
+  debitoServicos DebitoServico[]
 
   @@map("servico")
 }
 
 model Usuario {
-  id            Int       @id @default(autoincrement())
-  nome          String    @db.VarChar(100)
-  email         String    @unique @db.VarChar(100)
-  senha         String    @db.VarChar(255)
-  nivel         NivelUsuario @default(cliente)
-  cpfCnpj       String?   @map("cpf_cnpj") @db.VarChar(20)
-  celular       String?   @db.VarChar(20)
-  dataCadastro  DateTime  @default(now()) @map("data_cadastro")
+  id           Int          @id @default(autoincrement())
+  nome         String       @db.VarChar(100)
+  email        String       @unique @db.VarChar(100)
+  senha        String       @db.VarChar(255)
+  nivel        NivelUsuario @default(cliente)
+  cpfCnpj      String?      @map("cpf_cnpj") @db.VarChar(20)
+  celular      String?      @db.VarChar(20)
+  dataCadastro DateTime     @default(now()) @map("data_cadastro")
 
-  veiculos      Veiculo[]
-  solicitacoes  Solicitacao[]
+  veiculos     Veiculo[]
+  solicitacoes Solicitacao[]
 
   @@map("usuario")
 }
 
 model Veiculo {
-  id             Int      @id @default(autoincrement())
-  usuarioId      Int      @map("usuario_id")
-  placa          String   @db.VarChar(10)
-  renavam        String?  @db.VarChar(20)
-  marca          String?  @db.VarChar(50)
-  modelo         String?  @db.VarChar(50)
-  anoFabricacao  Int?     @map("ano_fabricacao")
-  anoModelo      Int?     @map("ano_modelo")
+  id            Int     @id @default(autoincrement())
+  usuarioId     Int     @map("usuario_id")
+  placa         String  @db.VarChar(10)
+  renavam       String? @db.VarChar(20)
+  marca         String? @db.VarChar(50)
+  modelo        String? @db.VarChar(50)
+  anoFabricacao Int?    @map("ano_fabricacao")
+  anoModelo     Int?    @map("ano_modelo")
 
-  usuario        Usuario  @relation(fields: [usuarioId], references: [id], onDelete: Cascade)
+  usuario        Usuario         @relation(fields: [usuarioId], references: [id], onDelete: Cascade)
   solicitacoes   Solicitacao[]
   debitoVeiculos DebitoVeiculo[]
 
@@ -180,20 +180,20 @@ model Veiculo {
 }
 
 model Solicitacao {
-  id                 Int                 @id @default(autoincrement())
-  usuarioId          Int                 @map("usuario_id")
-  veiculoId          Int?                 @map("veiculo_id")
-  servicoId          Int                 @map("servico_id")
-  status             StatusSolicitacao   @default(recebido)
-  observacaoCliente  String?             @map("observacao_cliente") @db.Text
-  observacaoAdmin    String?             @map("observacao_admin") @db.Text
-  dataSolicitacao    DateTime            @default(now()) @map("data_solicitacao")
-  dataConclusao      DateTime?           @map("data_conclusao")
+  id                Int               @id @default(autoincrement())
+  usuarioId         Int               @map("usuario_id")
+  veiculoId         Int?              @map("veiculo_id")
+  servicoId         Int               @map("servico_id")
+  status            StatusSolicitacao @default(recebido)
+  observacaoCliente String?           @map("observacao_cliente") @db.Text
+  observacaoAdmin   String?           @map("observacao_admin") @db.Text
+  dataSolicitacao   DateTime          @default(now()) @map("data_solicitacao")
+  dataConclusao     DateTime?         @map("data_conclusao")
 
-  usuario            Usuario             @relation(fields: [usuarioId], references: [id], onDelete: Cascade)
-  veiculo            Veiculo?             @relation(fields: [veiculoId], references: [id], onDelete: Cascade)
-  servico            Servico             @relation(fields: [servicoId], references: [id])
-  documentos         DocumentoSolicitacao[]
+  usuario    Usuario                @relation(fields: [usuarioId], references: [id], onDelete: Cascade)
+  veiculo    Veiculo?               @relation(fields: [veiculoId], references: [id], onDelete: Cascade)
+  servico    Servico                @relation(fields: [servicoId], references: [id])
+  documentos DocumentoSolicitacao[]
 
   @@map("solicitacao")
 }
@@ -206,83 +206,83 @@ model DocumentoSolicitacao {
   statusValidacao StatusValidacaoDocumento @default(pendente) @map("status_validacao")
   dataUpload      DateTime?                @map("data_upload")
 
-  solicitacao     Solicitacao              @relation(fields: [solicitacaoId], references: [id], onDelete: Cascade)
+  solicitacao Solicitacao @relation(fields: [solicitacaoId], references: [id], onDelete: Cascade)
 
   @@map("documento_solicitacao")
 }
-
 
 model emails_enviados {
   id             Int      @id @default(autoincrement())
   nome_usuario   String   @db.VarChar(255)
   email_usuario  String   @db.VarChar(255)
-  assunto        String   @db.VarChar(255) 
+  assunto        String   @db.VarChar(255)
   texto_digitado String   @db.Text
   data_envio     DateTime @default(now())
 }
 
 model Debito {
-  id         Int           @id @default(autoincrement())
-  tipo       TipoDebito
-  descricao  String?       @db.Text
-  valor      Decimal       @db.Decimal(10, 2)
-  status     StatusDebito  @default(pendente)
-  createdAt  DateTime      @default(now()) @map("created_at")
+  id        Int          @id @default(autoincrement())
+  tipo      TipoDebito
+  descricao String?      @db.Text
+  valor     Decimal      @db.Decimal(10, 2)
+  status    StatusDebito @default(pendente)
+  createdAt DateTime     @default(now()) @map("created_at")
 
-  pagamento       Pagamento?
-  debitoServicos  DebitoServico[]
-  debitoVeiculos  DebitoVeiculo[]
+  pagamento      Pagamento?
+  debitoServicos DebitoServico?
+  debitoVeiculos DebitoVeiculo?
 
   @@map("debito")
 }
 
 model DebitoServico {
-  id         Int      @id @default(autoincrement())
-  idDebito   Int      @map("id_debito")
-  idServico  Int      @map("id_servico")
+  id        Int @id @default(autoincrement())
+  idDebito  Int @unique @map("id_debito")
+  idServico Int @map("id_servico")
 
-  debito     Debito   @relation(fields: [idDebito], references: [id], onDelete: Cascade)
-  servico    Servico  @relation(fields: [idServico], references: [id], onDelete: Cascade)
+  debito  Debito  @relation(fields: [idDebito], references: [id], onDelete: Cascade)
+  servico Servico @relation(fields: [idServico], references: [id], onDelete: Cascade)
 
   @@map("debito_servico")
 }
 
 model DebitoVeiculo {
-  id         Int      @id @default(autoincrement())
-  idDebito   Int      @map("id_debito")
-  idVeiculo  Int      @map("id_veiculo")
+  id        Int @id @default(autoincrement())
+  idDebito  Int @unique @map("id_debito")
+  idVeiculo Int @map("id_veiculo")
 
-  debito     Debito   @relation(fields: [idDebito], references: [id], onDelete: Cascade)
-  veiculo    Veiculo  @relation(fields: [idVeiculo], references: [id], onDelete: Cascade)
+  debito  Debito  @relation(fields: [idDebito], references: [id], onDelete: Cascade)
+  veiculo Veiculo @relation(fields: [idVeiculo], references: [id], onDelete: Cascade)
 
   @@map("debito_veiculo")
 }
 
 model Pagamento {
-  id               Int            @id @default(autoincrement())
-  idDebito         Int            @unique @map("id_debito")
-  valorTotal       Decimal        @map("valor_total") @db.Decimal(10, 2)
-  qtdParcelas      Int            @map("qtd_parcelas")
-  tipoPagamento    TipoPagamento  @map("tipo_pagamento")
-  metodoPagamento  String         @map("metodo_pagamento") @db.VarChar(100)
-  taxa             Decimal        @db.Decimal(10, 2)
-  createdAt        DateTime       @default(now()) @map("created_at")
+  id              Int           @id @default(autoincrement())
+  idDebito        Int           @unique @map("id_debito")
+  valorTotal      Decimal       @map("valor_total") @db.Decimal(10, 2)
+  qtdParcelas     Int           @map("qtd_parcelas")
+  tipoPagamento   TipoPagamento @map("tipo_pagamento")
+  metodoPagamento String        @map("metodo_pagamento") @db.VarChar(100)
+  taxa            Decimal       @default(0) @db.Decimal(10, 2)
+  createdAt       DateTime      @default(now()) @map("created_at")
 
-  debito           Debito         @relation(fields: [idDebito], references: [id], onDelete: Cascade)
-  parcelas         Parcela[]
+  debito   Debito    @relation(fields: [idDebito], references: [id], onDelete: Cascade)
+  parcelas Parcela[]
 
   @@map("pagamento")
 }
 
 model Parcela {
-  id             Int            @id @default(autoincrement())
-  idPagamento    Int            @map("id_pagamento")
-  valor          Decimal        @db.Decimal(10, 2)
-  numeroParcela  Int            @map("numero_parcela")
-  status         StatusParcela  @default(ativo)
-  vencimento     DateTime       @db.Date
+  id            Int           @id @default(autoincrement())
+  idPagamento   Int           @map("id_pagamento")
+  valor         Decimal       @db.Decimal(10, 2)
+  numeroParcela Int           @map("numero_parcela")
+  status        StatusParcela @default(ativo)
+  vencimento    DateTime      @db.Date
 
-  pagamento      Pagamento      @relation(fields: [idPagamento], references: [id], onDelete: Cascade)
+  pagamento Pagamento @relation(fields: [idPagamento], references: [id], onDelete: Cascade)
 
+  @@unique([idPagamento, numeroParcela])
   @@map("parcela")
 }
