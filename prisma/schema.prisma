@@ -51,6 +51,27 @@ enum CategoriaFaq {
   frequentes
 }
 
+enum TipoDebito {
+  servico
+  veiculo
+}
+
+enum StatusDebito {
+  pago
+  pendente
+}
+
+enum TipoPagamento {
+  avista
+  parcelado
+}
+
+enum StatusParcela {
+  pago
+  atrasado
+  ativo
+}
+
 //
 // TABELAS
 //
@@ -120,6 +141,7 @@ model Servico {
   ativo              Boolean  @default(true)
 
   solicitacoes       Solicitacao[]
+  debitoServicos     DebitoServico[]
 
   @@map("servico")
 }
@@ -152,6 +174,7 @@ model Veiculo {
 
   usuario        Usuario  @relation(fields: [usuarioId], references: [id], onDelete: Cascade)
   solicitacoes   Solicitacao[]
+  debitoVeiculos DebitoVeiculo[]
 
   @@map("veiculo")
 }
@@ -196,4 +219,70 @@ model emails_enviados {
   assunto        String   @db.VarChar(255) 
   texto_digitado String   @db.Text
   data_envio     DateTime @default(now())
+}
+
+model Debito {
+  id         Int           @id @default(autoincrement())
+  tipo       TipoDebito
+  descricao  String?       @db.Text
+  valor      Decimal       @db.Decimal(10, 2)
+  status     StatusDebito  @default(pendente)
+  createdAt  DateTime      @default(now()) @map("created_at")
+
+  pagamento       Pagamento?
+  debitoServicos  DebitoServico[]
+  debitoVeiculos  DebitoVeiculo[]
+
+  @@map("debito")
+}
+
+model DebitoServico {
+  id         Int      @id @default(autoincrement())
+  idDebito   Int      @map("id_debito")
+  idServico  Int      @map("id_servico")
+
+  debito     Debito   @relation(fields: [idDebito], references: [id], onDelete: Cascade)
+  servico    Servico  @relation(fields: [idServico], references: [id], onDelete: Cascade)
+
+  @@map("debito_servico")
+}
+
+model DebitoVeiculo {
+  id         Int      @id @default(autoincrement())
+  idDebito   Int      @map("id_debito")
+  idVeiculo  Int      @map("id_veiculo")
+
+  debito     Debito   @relation(fields: [idDebito], references: [id], onDelete: Cascade)
+  veiculo    Veiculo  @relation(fields: [idVeiculo], references: [id], onDelete: Cascade)
+
+  @@map("debito_veiculo")
+}
+
+model Pagamento {
+  id               Int            @id @default(autoincrement())
+  idDebito         Int            @unique @map("id_debito")
+  valorTotal       Decimal        @map("valor_total") @db.Decimal(10, 2)
+  qtdParcelas      Int            @map("qtd_parcelas")
+  tipoPagamento    TipoPagamento  @map("tipo_pagamento")
+  metodoPagamento  String         @map("metodo_pagamento") @db.VarChar(100)
+  taxa             Decimal        @db.Decimal(10, 2)
+  createdAt        DateTime       @default(now()) @map("created_at")
+
+  debito           Debito         @relation(fields: [idDebito], references: [id], onDelete: Cascade)
+  parcelas         Parcela[]
+
+  @@map("pagamento")
+}
+
+model Parcela {
+  id             Int            @id @default(autoincrement())
+  idPagamento    Int            @map("id_pagamento")
+  valor          Decimal        @db.Decimal(10, 2)
+  numeroParcela  Int            @map("numero_parcela")
+  status         StatusParcela  @default(ativo)
+  vencimento     DateTime       @db.Date
+
+  pagamento      Pagamento      @relation(fields: [idPagamento], references: [id], onDelete: Cascade)
+
+  @@map("parcela")
 }

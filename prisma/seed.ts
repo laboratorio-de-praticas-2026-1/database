@@ -1,5 +1,14 @@
 import 'dotenv/config';
-import { PrismaClient, NivelUsuario, StatusSolicitacao, StatusValidacaoDocumento } from '../generated/prisma/client.js';
+import {
+  PrismaClient,
+  NivelUsuario,
+  StatusSolicitacao,
+  StatusValidacaoDocumento,
+  TipoDebito,
+  StatusDebito,
+  TipoPagamento,
+  StatusParcela
+} from '../generated/prisma/client.js';
 import { PrismaMariaDb } from '@prisma/adapter-mariadb';
 
 const adapter = new PrismaMariaDb(process.env.DATABASE_URL!.replace('mysql://', 'mariadb://'));
@@ -176,9 +185,165 @@ async function main() {
     }
     console.log('Documentos criados');
 
+
+        // -------------------------------
+    // DÉBITOS
+    // -------------------------------
+    const debitos = [
+        {
+            id: 1,
+            tipo: TipoDebito.servico,
+            descricao: 'Débito referente ao serviço de licenciamento anual',
+            valor: 180.00,
+            status: StatusDebito.pendente,
+            createdAt: new Date('2026-03-10T10:00:00'),
+        },
+        {
+            id: 2,
+            tipo: TipoDebito.veiculo,
+            descricao: 'Débito veicular pendente vinculado ao veículo',
+            valor: 250.00,
+            status: StatusDebito.pendente,
+            createdAt: new Date('2026-03-10T10:30:00'),
+        },
+    ];
+
+    for (const d of debitos) {
+        await prisma.debito.upsert({
+            where: { id: d.id },
+            update: {
+                tipo: d.tipo,
+                descricao: d.descricao,
+                valor: d.valor,
+                status: d.status,
+            },
+            create: d,
+        });
+    }
+    console.log('Débitos criados');
+
+    // -------------------------------
+    // DÉBITO SERVIÇO
+    // -------------------------------
+    const debitoServicos = [
+        { id: 1, idDebito: 1, idServico: 1 },
+    ];
+
+    for (const ds of debitoServicos) {
+        await prisma.debitoServico.upsert({
+            where: { id: ds.id },
+            update: {
+                idDebito: ds.idDebito,
+                idServico: ds.idServico,
+            },
+            create: ds,
+        });
+    }
+    console.log('Débito_Servico criado');
+
+    // -------------------------------
+    // DÉBITO VEÍCULO
+    // -------------------------------
+    const debitoVeiculos = [
+        { id: 1, idDebito: 2, idVeiculo: 1 },
+    ];
+
+    for (const dv of debitoVeiculos) {
+        await prisma.debitoVeiculo.upsert({
+            where: { id: dv.id },
+            update: {
+                idDebito: dv.idDebito,
+                idVeiculo: dv.idVeiculo,
+            },
+            create: dv,
+        });
+    }
+    console.log('Débito_Veiculo criado');
+
+    // -------------------------------
+    // PAGAMENTOS
+    // -------------------------------
+    const pagamentos = [
+        {
+            id: 1,
+            idDebito: 1,
+            valorTotal: 180.00,
+            qtdParcelas: 1,
+            tipoPagamento: TipoPagamento.avista,
+            metodoPagamento: 'pix',
+            taxa: 0.00,
+            createdAt: new Date('2026-03-11T09:00:00'),
+        },
+        {
+            id: 2,
+            idDebito: 2,
+            valorTotal: 250.00,
+            qtdParcelas: 2,
+            tipoPagamento: TipoPagamento.parcelado,
+            metodoPagamento: 'cartao',
+            taxa: 15.00,
+            createdAt: new Date('2026-03-11T09:30:00'),
+        },
+    ];
+
+    for (const p of pagamentos) {
+        await prisma.pagamento.upsert({
+            where: { id: p.id },
+            update: {
+                idDebito: p.idDebito,
+                valorTotal: p.valorTotal,
+                qtdParcelas: p.qtdParcelas,
+                tipoPagamento: p.tipoPagamento,
+                metodoPagamento: p.metodoPagamento,
+                taxa: p.taxa,
+            },
+            create: p,
+        });
+    }
+    console.log('Pagamentos criados');
+
+    // -------------------------------
+    // PARCELAS
+    // -------------------------------
+    const parcelas = [
+        {
+            id: 1,
+            idPagamento: 2,
+            valor: 125.00,
+            numeroParcela: 1,
+            status: StatusParcela.ativo,
+            vencimento: new Date('2026-04-10'),
+        },
+        {
+            id: 2,
+            idPagamento: 2,
+            valor: 125.00,
+            numeroParcela: 2,
+            status: StatusParcela.ativo,
+            vencimento: new Date('2026-05-10'),
+        },
+    ];
+
+    for (const p of parcelas) {
+        await prisma.parcela.upsert({
+            where: { id: p.id },
+            update: {
+                idPagamento: p.idPagamento,
+                valor: p.valor,
+                numeroParcela: p.numeroParcela,
+                status: p.status,
+                vencimento: p.vencimento,
+            },
+            create: p,
+        });
+    }
+    console.log('Parcelas criadas');
+    
     console.log('Seed concluído com sucesso!');
 }
 
 main()
     .catch((e) => { console.error('Erro:', e); process.exit(1); })
     .finally(() => prisma.$disconnect());
+
+
