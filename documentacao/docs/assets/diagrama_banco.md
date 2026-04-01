@@ -40,6 +40,7 @@ erDiagram
         string titulo
         string conteudo
         string url_imagem
+        bool ativo
     }
     Usuario {
         int id PK
