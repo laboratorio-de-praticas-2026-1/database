@@ -2,7 +2,7 @@
 erDiagram
     Banner {
         int id PK
-        string urlImagem
+        string url_imagem
         string descricao
         bool ativo
     }
@@ -10,13 +10,13 @@ erDiagram
         int id PK
         string titulo
         string conteudo
-        date dataPublicacao
-        string urlImagem
+        date data_publicacao
+        string url_imagem
         bool ativo
     }
     Empresa {
         int id PK
-        string nomeFantasia
+        string nome_fantasia
         TipoEmpresa tipo
         string cnpj
         string telefone
@@ -39,7 +39,7 @@ erDiagram
         int id PK
         string titulo
         string conteudo
-        string urlImagem
+        string url_imagem
     }
     Usuario {
         int id PK
@@ -47,46 +47,46 @@ erDiagram
         string email UK
         string senha
         NivelUsuario nivel
-        string cpfCnpj
+        string cpf_cnpj
         string celular
-        datetime dataCadastro
+        datetime data_cadastro
     }
     Veiculo {
         int id PK
-        int usuarioId FK
+        int usuario_id FK
         string placa
         string renavam
         string marca
         string modelo
-        int anoFabricacao
-        int anoModelo
+        int ano_fabricacao
+        int ano_modelo
     }
     Solicitacao {
         int id PK
-        int usuarioId FK
-        int veiculoId FK
-        int servicoId FK
+        int usuario_id FK
+        int veiculo_id FK
+        int servico_id FK
         StatusSolicitacao status
-        string observacaoCliente
-        string observacaoAdmin
-        datetime dataSolicitacao
-        datetime dataConclusao
+        string observacao_cliente
+        string observacao_admin
+        datetime data_solicitacao
+        datetime data_conclusao
     }
     Servico {
         int id PK
         string nome
         string descricao
-        decimal valorBase
-        int prazoEstimadoDias
+        decimal valor_base
+        int prazo_estimado_dias
         bool ativo
     }
     DocumentoSolicitacao {
         int id PK
-        int solicitacaoId FK
-        string nomeHash
-        string tipoDocumento
-        StatusValidacaoDocumento statusValidacao
-        datetime dataUpload
+        int solicitacao_id FK
+        string nome_hash
+        string tipo_documento
+        StatusValidacaoDocumento status_validacao
+        datetime data_upload
     }
     emails_enviados {
         int id PK
@@ -102,33 +102,33 @@ erDiagram
         string descricao
         decimal valor
         StatusDebito status
-        datetime createdAt
+        datetime created_at
     }
     DebitoServico {
         int id PK
-        int idDebito FK, UK
-        int idServico FK
+        int id_debito FK, UK
+        int id_servico FK
     }
     DebitoVeiculo {
         int id PK
-        int idDebito FK, UK
-        int idVeiculo FK
+        int id_debito FK, UK
+        int id_veiculo FK
     }
     Pagamento {
         int id PK
-        int idDebito FK, UK
-        decimal valorTotal
-        int qtdParcelas
-        TipoPagamento tipoPagamento
-        string metodoPagamento
+        int id_debito FK, UK
+        decimal valor_total
+        int qtd_parcelas
+        TipoPagamento tipo_pagamento
+        string metodo_pagamento
         decimal taxa
-        datetime createdAt
+        datetime created_at
     }
     Parcela {
         int id PK
-        int idPagamento FK
+        int id_pagamento FK
         decimal valor
-        int numeroParcela
+        int numero_parcela
         StatusParcela status
         date vencimento
     }
