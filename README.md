@@ -25,6 +25,19 @@ Antes de iniciar qualquer modificação, é fundamental entender onde você est�
 ### 1. Conecte-se ao banco de dados:
 - Se for realizar testes de criação de dados ou de consulta (seja por meio do SQL ou via a API), utilize o banco de desenvolvimento `AlwaysData`. As credenciais de acesso estão disponíves com seu PM/PO
 - Se for realizar testes que necessitem de mudanças nas tabelas (para futuramente solicitar a mudança ao time de BD) utilize o banco local em `docker`
+  - Como rodar o banco localmente pelo docker compose:
+    1. Configurar Variáveis de Ambiente
+    ```
+    Clone o projeto database, crie o arquivo .env 
+    e preencha igual está no arquivo .env.example
+    ```
+    2. Subir os Containers
+    ```bash
+    docker compose -f compose.dev.yml up --build -d
+
+    Nota: O container prisma-migration irá automaticamente instalar as dependências, gerar o Prisma Client, aplicar as migrations existentes e executar o script de seed para popular o banco.
+    ```
+--- 
 
 Para se conectar ao banco, utilize uma ferramenta de banco de dados como o `HeidiSQL`, `DataGrip`, `dBeaver` ou `MySQL Workbench`
 
@@ -86,7 +99,7 @@ git clone https://github.com/laboratorio-de-praticas-2026-1/database.git
 cd <project-directory>
 
 # Inicie os serviços
-docker-compose -f compose.yml up -d
+docker-compose -f compose.dba.yml up -d
 
 # Configure variáveis de ambiente
 cp .env.example .env
