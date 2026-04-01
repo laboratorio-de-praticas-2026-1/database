@@ -6,7 +6,11 @@ O banco de dados do **Despachante Bortone** é estruturado para suportar o fluxo
 
 ## Diagrama
 
+### Modelo original do banco:
 ![Modelagem do Banco de Dados](assets/modelagem-banco.jpeg)
+
+### Modelo atual do banco:
+[Arquivo de modelagem](assets/diagrama_banco.md)
 
 ---
 

@@ -1,7 +1,7 @@
 # Documentação de Banco de Dados
 
 ## Visualização do Banco de Dados:
-- [Banco de Dados](documentacao/diagrama_banco.md)
+- [Arquivo de modelagem](documentacao/docs/assets/diagrama_banco.md)
 
 ---
 
