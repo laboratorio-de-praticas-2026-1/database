@@ -72,6 +72,14 @@ enum StatusParcela {
   ativo
 }
 
+enum CategoriaBlog {
+  Documentacao
+  Debitos
+  Multas
+  Legislacao
+  Condutor
+}
+
 //
 // TABELAS
 //
@@ -92,6 +100,8 @@ model Blog {
   dataPublicacao DateTime? @map("data_publicacao") @db.Date
   urlImagem      String?   @map("url_imagem")
   ativo          Boolean   @default(true)
+  olhoDoTexto String?  @map("olho_do_texto") 
+  categoria   CategoriaBlog?
 
   @@map("blog")
 }
