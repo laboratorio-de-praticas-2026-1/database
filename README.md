@@ -37,9 +37,9 @@ Antes de iniciar qualquer modificação, é fundamental entender onde você est�
     2. Subir os Containers
     ```bash
     docker compose -f compose.dev.yml up --build -d
-
-    Nota: O container prisma-migration irá automaticamente instalar as dependências, gerar o Prisma Client, aplicar as migrations existentes e executar o script de seed para popular o banco.
     ```
+    > Nota: o arquivo `compose.dev.yml` sobe o banco de dados local **junto com** o container `prisma-migration`, que irá automaticamente instalar as dependências, gerar o Prisma Client, aplicar as migrations existentes e executar o script de seed para popular o banco.
+    
 --- 
 
 Para se conectar ao banco, utilize uma ferramenta de banco de dados como o `HeidiSQL`, `DataGrip`, `dBeaver` ou `MySQL Workbench`
