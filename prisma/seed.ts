@@ -750,6 +750,7 @@ async function main() {
                 emailUsuario: email.emailUsuario,
                 assunto: email.assunto,
                 textoDigitado: email.textoDigitado,
+                dataEnvio: email.dataEnvio,
             },
             create: email,
         });
