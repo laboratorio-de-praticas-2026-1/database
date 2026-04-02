@@ -101,7 +101,7 @@ model Blog {
   urlImagem      String?   @map("url_imagem")
   ativo          Boolean   @default(true)
   olhoDoTexto String?  @map("olho_do_texto") 
-  categoria   CategoriaBlog?
+  categoria  CategoriaBlog  @default(Documentacao)
 
   @@map("blog")
 }

@@ -7,7 +7,8 @@ import {
     TipoDebito,
     StatusDebito,
     TipoPagamento,
-    StatusParcela
+    StatusParcela,
+    CategoriaBlog 
 } from '../generated/prisma/client.js';
 import {PrismaMariaDb} from '@prisma/adapter-mariadb';
 
@@ -292,21 +293,46 @@ async function main() {
             titulo: 'Calendário IPVA 2026',
             conteudo: 'Confira as datas de vencimento do IPVA por final de placa e evite multas.',
             dataPublicacao: new Date('2026-01-10'),
-            urlImagem: 'https://img.com/blog1.jpg'
+            urlImagem: 'https://img.com/blog1.jpg',
+            olhoDoTexto: 'Não pague multa por atraso — veja seu vencimento agora',
+            categoria: CategoriaBlog.Debitos
         },
         {
             id: 2,
             titulo: 'Como recorrer de uma multa de trânsito',
             conteudo: 'Entenda o passo a passo para apresentar recurso administrativo de forma eficaz.',
             dataPublicacao: new Date('2026-01-15'),
-            urlImagem: 'https://img.com/blog2.jpg'
+            urlImagem: 'https://img.com/blog2.jpg',
+            olhoDoTexto: 'Sua multa pode ser cancelada — saiba como recorrer',
+            categoria: CategoriaBlog.Multas
         },
         {
             id: 3,
             titulo: 'Documentos para transferência de veículo',
             conteudo: 'Veja a lista completa de documentos exigidos pelo Detran para transferência.',
             dataPublicacao: new Date('2026-01-20'),
-            urlImagem: 'https://img.com/blog3.jpg'
+            urlImagem: 'https://img.com/blog3.jpg',
+            olhoDoTexto: 'Evite surpresas na hora da transferência — confira a lista completa',
+            categoria: CategoriaBlog.Documentacao
+        },
+        
+        {
+            id: 4,
+            titulo: 'Nova lei de trânsito 2026',
+            conteudo: 'Entenda as mudanças na legislação de trânsito que entram em vigor este ano.',
+            dataPublicacao: new Date('2026-02-01'),
+            urlImagem: 'https://img.com/blog4.jpg',
+            olhoDoTexto: 'As novas regras já valem — você está por dentro?',
+            categoria: CategoriaBlog.Legislacao
+        },
+        {
+            id: 5,
+            titulo: 'Cuidados essenciais para o condutor',
+            conteudo: 'Dicas importantes para manter sua habilitação em dia e dirigir com segurança.',
+            dataPublicacao: new Date('2026-02-10'),
+            urlImagem: 'https://img.com/blog5.jpg',
+            olhoDoTexto: 'Seu direito de dirigir depende desses cuidados',
+            categoria: CategoriaBlog.Condutor
         },
     ];
     for (const p of posts) {
