@@ -13,6 +13,8 @@ erDiagram
         date data_publicacao
         string url_imagem
         bool ativo
+        string olho_do_texto
+        CategoriaBlog categoria
     }
     Empresa {
         int id PK
@@ -163,6 +165,16 @@ erDiagram
         string outros
         string frequentes
     }
+
+    CategoriaBlog {
+    string Documentacao
+    string Debitos
+    string Multas
+    string Legislacao
+    string Condutor
+    }
+
+
     TipoDebito {
         string servico
         string veiculo
@@ -202,4 +214,5 @@ erDiagram
     Debito }o--|| StatusDebito : "status"
     Pagamento }o--|| TipoPagamento : "tipoPagamento"
     Parcela }o--|| StatusParcela : "status"
+    Blog }o--|| CategoriaBlog : "categoria"
 ```
