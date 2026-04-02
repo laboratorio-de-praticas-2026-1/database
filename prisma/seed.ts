@@ -8,11 +8,20 @@ import {
     StatusDebito,
     TipoPagamento,
     StatusParcela,
-    CategoriaBlog 
+    CategoriaBlog
 } from '../generated/prisma/client.js';
 import {PrismaMariaDb} from '@prisma/adapter-mariadb';
 
-const adapter = new PrismaMariaDb(process.env.DATABASE_URL!.replace('mysql://', 'mariadb://'));
+const rawDatabaseUrl = process.env.DATABASE_URL;
+if (!rawDatabaseUrl) {
+    throw new Error('DATABASE_URL não está definida. Defina a variável de ambiente DATABASE_URL antes de executar o seed.');
+}
+const databaseUrl = new URL(rawDatabaseUrl);
+if (databaseUrl.protocol === 'mysql:') {
+    databaseUrl.protocol = 'mariadb:';
+}
+const adapter = new PrismaMariaDb(databaseUrl.toString());
+
 const prisma = new PrismaClient({adapter});
 
 async function main() {
@@ -315,7 +324,7 @@ async function main() {
             olhoDoTexto: 'Evite surpresas na hora da transferência — confira a lista completa',
             categoria: CategoriaBlog.Documentacao
         },
-        
+
         {
             id: 4,
             titulo: 'Nova lei de trânsito 2026',
