@@ -8,11 +8,20 @@ import {
     StatusDebito,
     TipoPagamento,
     StatusParcela,
-    CategoriaBlog 
+    CategoriaBlog,
 } from '../generated/prisma/client.js';
 import {PrismaMariaDb} from '@prisma/adapter-mariadb';
 
-const adapter = new PrismaMariaDb(process.env.DATABASE_URL!.replace('mysql://', 'mariadb://'));
+const rawDatabaseUrl = process.env.DATABASE_URL;
+if (!rawDatabaseUrl) {
+    throw new Error('DATABASE_URL não está definida. Defina a variável de ambiente DATABASE_URL antes de executar o seed.');
+}
+const databaseUrl = new URL(rawDatabaseUrl);
+if (databaseUrl.protocol === 'mysql:') {
+    databaseUrl.protocol = 'mariadb:';
+}
+const adapter = new PrismaMariaDb(databaseUrl.toString());
+
 const prisma = new PrismaClient({adapter});
 
 async function main() {
@@ -295,7 +304,8 @@ async function main() {
             dataPublicacao: new Date('2026-01-10'),
             urlImagem: 'https://img.com/blog1.jpg',
             olhoDoTexto: 'Não pague multa por atraso — veja seu vencimento agora',
-            categoria: CategoriaBlog.Debitos
+            categoria: CategoriaBlog.Debitos,
+            ativo: true
         },
         {
             id: 2,
@@ -304,7 +314,8 @@ async function main() {
             dataPublicacao: new Date('2026-01-15'),
             urlImagem: 'https://img.com/blog2.jpg',
             olhoDoTexto: 'Sua multa pode ser cancelada — saiba como recorrer',
-            categoria: CategoriaBlog.Multas
+            categoria: CategoriaBlog.Multas,
+            ativo: false
         },
         {
             id: 3,
@@ -313,9 +324,10 @@ async function main() {
             dataPublicacao: new Date('2026-01-20'),
             urlImagem: 'https://img.com/blog3.jpg',
             olhoDoTexto: 'Evite surpresas na hora da transferência — confira a lista completa',
-            categoria: CategoriaBlog.Documentacao
+            categoria: CategoriaBlog.Documentacao,
+            ativo: true
         },
-        
+
         {
             id: 4,
             titulo: 'Nova lei de trânsito 2026',
@@ -323,7 +335,8 @@ async function main() {
             dataPublicacao: new Date('2026-02-01'),
             urlImagem: 'https://img.com/blog4.jpg',
             olhoDoTexto: 'As novas regras já valem — você está por dentro?',
-            categoria: CategoriaBlog.Legislacao
+            categoria: CategoriaBlog.Legislacao,
+            ativo: true
         },
         {
             id: 5,
@@ -332,13 +345,22 @@ async function main() {
             dataPublicacao: new Date('2026-02-10'),
             urlImagem: 'https://img.com/blog5.jpg',
             olhoDoTexto: 'Seu direito de dirigir depende desses cuidados',
-            categoria: CategoriaBlog.Condutor
+            categoria: CategoriaBlog.Condutor,
+            ativo: true
         },
     ];
     for (const p of posts) {
         await prisma.blog.upsert({
             where: {id: p.id},
-            update: {titulo: p.titulo, conteudo: p.conteudo, dataPublicacao: p.dataPublicacao},
+            update: {
+                titulo: p.titulo,
+                conteudo: p.conteudo,
+                dataPublicacao: p.dataPublicacao,
+                urlImagem: p.urlImagem,
+                olhoDoTexto: p.olhoDoTexto,
+                categoria: p.categoria,
+                ativo: p.ativo,
+            },
             create: p,
         });
     }
@@ -697,6 +719,44 @@ async function main() {
         });
     }
     console.log('Parcelas criadas');
+    // -------------------------------
+    // EMAILS ENVIADOS
+    // -------------------------------
+
+    const emails = [
+        {
+            id: 1,
+            nomeUsuario: 'João Silva',
+            emailUsuario: 'joao.silva@email.com',
+            assunto: 'Dúvida sobre IPVA',
+            textoDigitado: 'Gostaria de saber as datas de vencimento do IPVA para o meu veículo.',
+            dataEnvio: new Date('2026-01-15T10:30:00'),
+        },
+        {
+            id: 2,
+            nomeUsuario: 'Maria Souza',
+            emailUsuario: 'maria.souza@email.com',
+            assunto: 'Recurso de multa',
+            textoDigitado: 'Preciso de ajuda para entender como recorrer de uma multa que recebi.',
+            dataEnvio: new Date('2026-01-20T14:00:00'),
+        },
+    ];
+
+    for (const email of emails) {
+        await prisma.emailsEnviados.upsert({
+            where: { id: email.id },
+            update: {
+                nomeUsuario: email.nomeUsuario,
+                emailUsuario: email.emailUsuario,
+                assunto: email.assunto,
+                textoDigitado: email.textoDigitado,
+                dataEnvio: email.dataEnvio,
+            },
+            create: email,
+        });
+    }
+
+    console.log('Emails enviados criados');
 
     console.log('Seed concluído com sucesso!');
 }

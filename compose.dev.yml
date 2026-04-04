@@ -21,7 +21,7 @@ services:
       retries: 10
 
   migration:
-    image: node:20-alpine
+    image: node:22-alpine
     container_name: prisma-migration
     depends_on:
       mysql:

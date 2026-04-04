@@ -94,14 +94,14 @@ model Banner {
 }
 
 model Blog {
-  id             Int       @id @default(autoincrement())
-  titulo         String?   @db.VarChar(150)
-  conteudo       String?   @db.Text
-  dataPublicacao DateTime? @map("data_publicacao") @db.Date
-  urlImagem      String?   @map("url_imagem")
-  ativo          Boolean   @default(true)
-  olhoDoTexto String?  @map("olho_do_texto") 
-  categoria  CategoriaBlog  @default(Documentacao)
+  id             Int           @id @default(autoincrement())
+  titulo         String?       @db.VarChar(150)
+  conteudo       String?       @db.Text
+  dataPublicacao DateTime?     @map("data_publicacao") @db.Date
+  urlImagem      String?       @map("url_imagem")
+  ativo          Boolean       @default(true)
+  olhoDoTexto    String?       @map("olho_do_texto")
+  categoria      CategoriaBlog @default(Documentacao)
 
   @@map("blog")
 }
@@ -222,13 +222,15 @@ model DocumentoSolicitacao {
   @@map("documento_solicitacao")
 }
 
-model emails_enviados {
-  id             Int      @id @default(autoincrement())
-  nome_usuario   String   @db.VarChar(255)
-  email_usuario  String   @db.VarChar(255)
-  assunto        String   @db.VarChar(255)
-  texto_digitado String   @db.Text
-  data_envio     DateTime @default(now())
+model EmailsEnviados {
+  id            Int      @id @default(autoincrement())
+  nomeUsuario   String   @map("nome_usuario") @db.VarChar(255)
+  emailUsuario  String   @map("email_usuario") @db.VarChar(255)
+  assunto       String   @db.VarChar(255)
+  textoDigitado String   @map("texto_digitado") @db.Text
+  dataEnvio     DateTime @default(now()) @map("data_envio")
+
+  @@map("emails_enviados")
 }
 
 model Debito {
@@ -239,9 +241,9 @@ model Debito {
   status    StatusDebito @default(pendente)
   createdAt DateTime     @default(now()) @map("created_at")
 
-  pagamento      Pagamento?
-  debitoServicos DebitoServico?
-  debitoVeiculos DebitoVeiculo?
+  pagamento     Pagamento?
+  debitoServico DebitoServico?
+  debitoVeiculo DebitoVeiculo?
 
   @@map("debito")
 }

@@ -17,15 +17,17 @@ jobs:
 
       - run: npm ci
 
-      - name: Generate Prisma Client
-        run: npx prisma generate
-
       - name: Validate Schema
         run: npx prisma validate
         env:
-          DATABASE_URL: ${{secrets.DATABASE_URL_PROD}}
+          DATABASE_URL: ${{ secrets.DATABASE_URL_PROD }}
 
       - name: Apply migrations on Production
         run: npx prisma migrate deploy
         env:
-          DATABASE_URL: ${{secrets.DATABASE_URL_PROD}}
+          DATABASE_URL: ${{ secrets.DATABASE_URL_PROD }}
+
+      - name: Generate Prisma Client
+        run: npx prisma generate
+        env:
+          DATABASE_URL: ${{ secrets.DATABASE_URL_PROD }}
