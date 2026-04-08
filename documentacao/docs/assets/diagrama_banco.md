@@ -136,6 +136,13 @@ erDiagram
         date vencimento
     }
 
+    InteracaoUsuario {
+        int id PK
+        int usuario_id FK
+        string categoria_blog
+        date data_interacao
+    }
+
     NivelUsuario {
         string cliente
         string administrador
@@ -174,7 +181,6 @@ erDiagram
     string Condutor
     }
 
-
     TipoDebito {
         string servico
         string veiculo
@@ -195,6 +201,7 @@ erDiagram
 
     Usuario ||--o{ Veiculo : "possui"
     Usuario ||--o{ Solicitacao : "abre"
+    Usuario ||--o{ InteracaoUsuario : "gera"
     Veiculo ||--o{ Solicitacao : "referenciado em"
     Servico ||--o{ Solicitacao : "solicitado em"
     Solicitacao ||--o{ DocumentoSolicitacao : "tem"
