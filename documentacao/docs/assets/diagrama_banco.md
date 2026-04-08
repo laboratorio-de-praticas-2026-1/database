@@ -139,7 +139,7 @@ erDiagram
     InteracaoUsuario {
         int id PK
         int usuario_id FK
-        string categoria_blog
+        CategoriaBlog categoria_blog
         date data_interacao
     }
 
@@ -222,4 +222,5 @@ erDiagram
     Pagamento }o--|| TipoPagamento : "tipoPagamento"
     Parcela }o--|| StatusParcela : "status"
     Blog }o--|| CategoriaBlog : "categoria"
+    InteracaoUsuario }o--|| CategoriaBlog : "categoriaBlog"
 ```

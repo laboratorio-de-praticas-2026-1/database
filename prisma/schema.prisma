@@ -304,7 +304,7 @@ model Parcela {
 model InteracaoUsuario {
   id              Int           @id @default(autoincrement())
   usuarioId       Int           @map("usuario_id")
-  categoriaBlog   String        @map("categoria_blog") @db.VarChar(50)
+  categoriaBlog   CategoriaBlog @map("categoria_blog")
   dataInteracao DateTime @map("data_interacao") @db.Date
 
   usuario Usuario @relation(fields: [usuarioId], references: [id], onDelete: Cascade)
