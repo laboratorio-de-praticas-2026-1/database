@@ -758,6 +758,30 @@ async function main() {
 
     console.log('Emails enviados criados');
 
+    // -------------------------------
+    // INTERAÇÕES USUÁRIO (Blog)
+    // -------------------------------
+    const interacoes = [
+        {id: 1, usuarioId: 2, categoriaBlog: CategoriaBlog.Documentacao, dataInteracao: new Date('2026-03-15')},
+        {id: 2, usuarioId: 2, categoriaBlog: CategoriaBlog.Documentacao, dataInteracao: new Date('2026-03-16')},
+        {id: 3, usuarioId: 3, categoriaBlog: CategoriaBlog.Debitos,      dataInteracao: new Date('2026-03-15')},
+        {id: 4, usuarioId: 4, categoriaBlog: CategoriaBlog.Multas,       dataInteracao: new Date('2026-03-17')},
+        {id: 5, usuarioId: 5, categoriaBlog: CategoriaBlog.Documentacao, dataInteracao: new Date('2026-03-18')},
+    ];
+
+    for (const i of interacoes) {
+        await prisma.interacaoUsuario.upsert({
+            where: {id: i.id},
+            update: {
+                usuarioId: i.usuarioId,
+                categoriaBlog: i.categoriaBlog,
+                dataInteracao: i.dataInteracao,
+            },
+            create: i,
+        });
+    }
+    console.log('Interações de usuário criadas');
+
     console.log('Seed concluído com sucesso!');
 }
 
