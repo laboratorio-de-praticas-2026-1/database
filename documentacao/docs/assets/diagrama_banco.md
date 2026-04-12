@@ -82,6 +82,7 @@ erDiagram
         decimal valor_base
         int prazo_estimado_dias
         bool ativo
+        bool exige_veiculo
     }
     DocumentoSolicitacao {
         int id PK
