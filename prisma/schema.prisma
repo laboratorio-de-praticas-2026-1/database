@@ -150,6 +150,7 @@ model Servico {
   valorBase         Decimal? @map("valor_base") @db.Decimal(10, 2)
   prazoEstimadoDias Int?     @map("prazo_estimado_dias")
   ativo             Boolean  @default(true)
+  exigeVeiculo      Boolean  @default(true) @map("exige_veiculo")
 
   solicitacoes   Solicitacao[]
   debitoServicos DebitoServico[]
