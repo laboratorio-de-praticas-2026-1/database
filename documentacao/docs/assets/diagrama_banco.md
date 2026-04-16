@@ -144,6 +144,15 @@ erDiagram
         date data_interacao
     }
 
+    Relatorio {
+        int id PK
+        string nome
+        string descricao
+        RelatorioCategoria categoria
+        string url_documento_hash
+        date data_geracao
+    }
+
     NivelUsuario {
         string cliente
         string administrador
@@ -199,6 +208,19 @@ erDiagram
         string atrasado
         string ativo
     }
+    RelatorioCategoria {
+        string relatorio_completo
+        string performance_financeira
+        string desempenho_operacional
+        string performance_servicos
+        string gestao_solicitacoes
+        string gestao_documentos
+        string gestao_veiculos
+        string base_clientes
+        string analise_eficiencia
+        string funil_conversao
+        string gargalos_operacionais
+    }
 
     Usuario ||--o{ Veiculo : "possui"
     Usuario ||--o{ Solicitacao : "abre"
@@ -224,4 +246,5 @@ erDiagram
     Parcela }o--|| StatusParcela : "status"
     Blog }o--|| CategoriaBlog : "categoria"
     InteracaoUsuario }o--|| CategoriaBlog : "categoriaBlog"
+    Relatorio }o--|| RelatorioCategoria : "categoria"
 ```
