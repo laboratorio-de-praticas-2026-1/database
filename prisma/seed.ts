@@ -9,6 +9,7 @@ import {
     TipoPagamento,
     StatusParcela,
     CategoriaBlog,
+    RelatorioCategoria
 } from '../generated/prisma/client.js';
 import {PrismaMariaDb} from '@prisma/adapter-mariadb';
 
@@ -158,7 +159,8 @@ async function main() {
             descricao: 'Renovação do CRLV anual',
             valorBase: 180.00,
             prazoEstimadoDias: 2,
-            ativo: true
+            ativo: true,
+            exigeVeiculo: true
         },
         {
             id: 2,
@@ -166,7 +168,8 @@ async function main() {
             descricao: 'Transferência de titularidade do veículo',
             valorBase: 350.00,
             prazoEstimadoDias: 5,
-            ativo: true
+            ativo: true,
+            exigeVeiculo: true
         },
         {
             id: 3,
@@ -174,7 +177,8 @@ async function main() {
             descricao: 'Registro de veículo zero quilômetro',
             valorBase: 420.00,
             prazoEstimadoDias: 7,
-            ativo: true
+            ativo: true,
+            exigeVeiculo: true
         },
         {
             id: 4,
@@ -182,7 +186,8 @@ async function main() {
             descricao: 'Renovação da carteira de habilitação',
             valorBase: 200.00,
             prazoEstimadoDias: 10,
-            ativo: true
+            ativo: true,
+            exigeVeiculo: false
         },
         {
             id: 5,
@@ -190,7 +195,8 @@ async function main() {
             descricao: 'Retirada de restrição financeira do veículo',
             valorBase: 190.00,
             prazoEstimadoDias: 3,
-            ativo: true
+            ativo: true,
+            exigeVeiculo: true
         },
         {
             id: 6,
@@ -198,7 +204,8 @@ async function main() {
             descricao: 'Defesa administrativa de autuação',
             valorBase: 250.00,
             prazoEstimadoDias: 15,
-            ativo: true
+            ativo: true,
+            exigeVeiculo: true
         },
         {
             id: 7,
@@ -206,7 +213,8 @@ async function main() {
             descricao: 'Emissão de segunda via do documento',
             valorBase: 120.00,
             prazoEstimadoDias: 2,
-            ativo: true
+            ativo: true,
+            exigeVeiculo: true
         },
         {
             id: 8,
@@ -214,7 +222,8 @@ async function main() {
             descricao: 'Alteração de categoria da habilitação',
             valorBase: 600.00,
             prazoEstimadoDias: 30,
-            ativo: true
+            ativo: true,
+            exigeVeiculo: false
         },
         {
             id: 9,
@@ -222,7 +231,8 @@ async function main() {
             descricao: 'Registro de venda no Detran',
             valorBase: 150.00,
             prazoEstimadoDias: 1,
-            ativo: true
+            ativo: true,
+            exigeVeiculo: true
         },
         {
             id: 10,
@@ -230,9 +240,11 @@ async function main() {
             descricao: 'Parcelamento de IPVA e multas pendentes',
             valorBase: 90.00,
             prazoEstimadoDias: 1,
-            ativo: true
+            ativo: true,
+            exigeVeiculo: true
         },
     ];
+
     for (const s of servicos) {
         await prisma.servico.upsert({
             where: {id: s.id},
@@ -240,12 +252,15 @@ async function main() {
                 nome: s.nome,
                 descricao: s.descricao,
                 valorBase: s.valorBase,
-                prazoEstimadoDias: s.prazoEstimadoDias
+                prazoEstimadoDias: s.prazoEstimadoDias,
+                ativo: s.ativo,
+                exigeVeiculo: s.exigeVeiculo
             },
             create: s,
         });
     }
     console.log('Serviços criados');
+    
 
     // Banners
     const banners = [
@@ -782,7 +797,52 @@ async function main() {
     }
     console.log('Interações de usuário criadas');
 
-    console.log('Seed concluído com sucesso!');
+  // -------------------------------
+  // RELATÓRIOS
+  // -------------------------------
+  const relatorios = [
+    {
+      id: 1,
+      nome: "Relatório Completo - Março 2026",
+      descricao:
+        "Relatório detalhado de todas as atividades do sistema no mês de março de 2026.",
+      categoria: RelatorioCategoria.relatorio_completo,
+      urlDocumentoHash: "relatorio_marco_2026.pdf",
+      dataGeracao: new Date("2026-04-01"),
+      periodoInicio: new Date("2026-03-01"),
+      periodoFim: new Date("2026-03-31"),
+    },
+    {
+      id: 2,
+      nome: "Relatório de Solicitações - Março 2026",
+      descricao:
+        "Relatório específico das solicitações realizadas no mês de março de 2026.",
+      categoria: RelatorioCategoria.gestao_solicitacoes,
+      urlDocumentoHash: "relatorio_solicitacoes_marco_2026.pdf",
+      dataGeracao: new Date("2026-04-01"),
+      periodoInicio: new Date("2026-03-01"),
+      periodoFim: new Date("2026-03-31"),
+    },
+  ];
+
+  for (const r of relatorios) {
+    await prisma.relatorio.upsert({
+      where: { id: r.id },
+      update: {
+        nome: r.nome,
+        descricao: r.descricao,
+        categoria: r.categoria,
+        urlDocumentoHash: r.urlDocumentoHash,
+        dataGeracao: r.dataGeracao,
+        periodoInicio: r.periodoInicio,
+        periodoFim: r.periodoFim,
+      },
+      create: r,
+    });
+  }
+  console.log("Relatórios criados");
+
+  console.log("Seed concluído com sucesso!");  
 }
 
 main()
