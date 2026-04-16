@@ -9,6 +9,7 @@ import {
     TipoPagamento,
     StatusParcela,
     CategoriaBlog,
+    RelatorioCategoria
 } from '../generated/prisma/client.js';
 import {PrismaMariaDb} from '@prisma/adapter-mariadb';
 
@@ -796,7 +797,52 @@ async function main() {
     }
     console.log('Interações de usuário criadas');
 
-    console.log('Seed concluído com sucesso!');
+  // -------------------------------
+  // RELATÓRIOS
+  // -------------------------------
+  const relatorios = [
+    {
+      id: 1,
+      nome: "Relatório Completo - Março 2026",
+      descricao:
+        "Relatório detalhado de todas as atividades do sistema no mês de março de 2026.",
+      categoria: RelatorioCategoria.relatorio_completo,
+      urlDocumentoHash: "relatorio_marco_2026.pdf",
+      dataGeracao: new Date("2026-04-01"),
+      periodoInicio: new Date("2026-03-01"),
+      periodoFim: new Date("2026-03-31"),
+    },
+    {
+      id: 2,
+      nome: "Relatório de Solicitações - Março 2026",
+      descricao:
+        "Relatório específico das solicitações realizadas no mês de março de 2026.",
+      categoria: RelatorioCategoria.gestao_solicitacoes,
+      urlDocumentoHash: "relatorio_solicitacoes_marco_2026.pdf",
+      dataGeracao: new Date("2026-04-01"),
+      periodoInicio: new Date("2026-03-01"),
+      periodoFim: new Date("2026-03-31"),
+    },
+  ];
+
+  for (const r of relatorios) {
+    await prisma.relatorio.upsert({
+      where: { id: r.id },
+      update: {
+        nome: r.nome,
+        descricao: r.descricao,
+        categoria: r.categoria,
+        urlDocumentoHash: r.urlDocumentoHash,
+        dataGeracao: r.dataGeracao,
+        periodoInicio: r.periodoInicio,
+        periodoFim: r.periodoFim,
+      },
+      create: r,
+    });
+  }
+  console.log("Relatórios criados");
+
+  console.log("Seed concluído com sucesso!");  
 }
 
 main()
