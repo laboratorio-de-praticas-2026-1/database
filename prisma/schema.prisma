@@ -80,6 +80,20 @@ enum CategoriaBlog {
   Condutor
 }
 
+enum RelatorioCategoria {
+  relatorio_completo
+  performance_financeira
+  desempenho_operacional
+  performance_servicos
+  gestao_solicitacoes
+  gestao_documentos
+  gestao_veiculos
+  base_clientes
+  analise_eficiencia
+  funil_conversao
+  gargalos_operacionais
+}
+
 //
 // TABELAS
 //
@@ -311,4 +325,15 @@ model InteracaoUsuario {
   usuario Usuario @relation(fields: [usuarioId], references: [id], onDelete: Cascade)
 
   @@map("interacao_usuario")
+}
+
+model Relatorio {
+  id                Int                 @id @default(autoincrement())
+  nome              String              @db.VarChar(100)
+  descricao         String?             @db.Text
+  categoria         RelatorioCategoria  @default(relatorio_completo)
+  urlDocumentoHash  String              @map("url_documento_hash") @db.VarChar(255)
+  dataGeracao       DateTime            @map("data_geracao") @db.Date 
+
+  @@map("relatorio")
 }
