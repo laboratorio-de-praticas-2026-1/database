@@ -334,6 +334,8 @@ model Relatorio {
   categoria         RelatorioCategoria  @default(relatorio_completo)
   urlDocumentoHash  String              @map("url_documento_hash") @db.VarChar(255)
   dataGeracao       DateTime            @map("data_geracao") @db.Date 
+  periodoInicio     DateTime            @map("periodo_inicio") @db.Date
+  periodoFim        DateTime            @map("periodo_fim") @db.Date
 
   @@map("relatorio")
 }

@@ -809,6 +809,8 @@ async function main() {
       categoria: RelatorioCategoria.relatorio_completo,
       urlDocumentoHash: "relatorio_marco_2026.pdf",
       dataGeracao: new Date("2026-04-01"),
+      periodoInicio: new Date("2026-03-01"),
+      periodoFim: new Date("2026-03-31"),
     },
     {
       id: 2,
@@ -818,6 +820,8 @@ async function main() {
       categoria: RelatorioCategoria.gestao_solicitacoes,
       urlDocumentoHash: "relatorio_solicitacoes_marco_2026.pdf",
       dataGeracao: new Date("2026-04-01"),
+      periodoInicio: new Date("2026-03-01"),
+      periodoFim: new Date("2026-03-31"),
     },
   ];
 
@@ -830,6 +834,8 @@ async function main() {
         categoria: r.categoria,
         urlDocumentoHash: r.urlDocumentoHash,
         dataGeracao: r.dataGeracao,
+        periodoInicio: r.periodoInicio,
+        periodoFim: r.periodoFim,
       },
       create: r,
     });
