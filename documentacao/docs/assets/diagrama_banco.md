@@ -151,6 +151,8 @@ erDiagram
         RelatorioCategoria categoria
         string url_documento_hash
         date data_geracao
+        date periodo_inicio
+        date periodo_fim
     }
 
     NivelUsuario {
