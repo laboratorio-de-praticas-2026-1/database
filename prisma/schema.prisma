@@ -257,7 +257,7 @@ model Debito {
   valor     Decimal      @db.Decimal(10, 2)
   status    StatusDebito @default(pendente)
   createdAt DateTime     @default(now()) @map("created_at")
-  solicitacaoId  Int     @map("solicitacao_id")
+  solicitacaoId  Int?     @map("solicitacao_id")
 
   solicitacao Solicitacao? @relation(fields: [solicitacaoId], references: [id], onDelete: Cascade)
 
