@@ -107,6 +107,7 @@ erDiagram
         decimal valor
         StatusDebito status
         datetime created_at
+        int solicitacao_id FK
     }
     DebitoServico {
         int id PK
@@ -249,4 +250,5 @@ erDiagram
     Blog }o--|| CategoriaBlog : "categoria"
     InteracaoUsuario }o--|| CategoriaBlog : "categoriaBlog"
     Relatorio }o--|| RelatorioCategoria : "categoria"
+    Debito ||--|| Solicitacao : "referencia"
 ```
