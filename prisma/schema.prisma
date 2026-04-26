@@ -221,6 +221,7 @@ model Solicitacao {
   veiculo    Veiculo?               @relation(fields: [veiculoId], references: [id], onDelete: Cascade)
   servico    Servico                @relation(fields: [servicoId], references: [id])
   documentos DocumentoSolicitacao[]
+  debitos Debito[]
 
   @@map("solicitacao")
 }
@@ -256,10 +257,13 @@ model Debito {
   valor     Decimal      @db.Decimal(10, 2)
   status    StatusDebito @default(pendente)
   createdAt DateTime     @default(now()) @map("created_at")
+  solicitacaoId  Int?     @map("solicitacao_id")
+
+  solicitacao Solicitacao? @relation(fields: [solicitacaoId], references: [id], onDelete: Cascade)
 
   pagamento     Pagamento?
   debitoServico DebitoServico?
-  debitoVeiculo DebitoVeiculo?
+  debitoVeiculo DebitoVeiculo?  
 
   @@map("debito")
 }
@@ -337,5 +341,5 @@ model Relatorio {
   periodoInicio     DateTime            @map("periodo_inicio") @db.Date
   periodoFim        DateTime            @map("periodo_fim") @db.Date
 
-  @@map("relatorio")
+  @@map("relatorio")  
 }
