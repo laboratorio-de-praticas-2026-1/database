@@ -525,6 +525,16 @@ async function main() {
             dataSolicitacao: new Date('2026-03-03T15:18:52'),
             dataConclusao: null
         },
+        {
+            id: 6,
+            usuarioId: 2,
+            veiculoId: 1,
+            servicoId: 1,
+            status: StatusSolicitacao.em_andamento,
+            observacaoCliente: "Quero com Urgência.",
+            dataSolicitacao: new Date("2026-03-05T15:18:52"),
+            dataConclusao: null,
+        },        
     ];
     for (const sol of solicitacoes) {
         await prisma.solicitacao.upsert({
@@ -599,6 +609,7 @@ async function main() {
             valor: 180.00,
             status: StatusDebito.pendente,
             createdAt: new Date('2026-03-10T10:00:00'),
+            solicitacaoId: 1,
         },
         {
             id: 2,
@@ -607,6 +618,7 @@ async function main() {
             valor: 250.00,
             status: StatusDebito.pendente,
             createdAt: new Date('2026-03-10T10:30:00'),
+            solicitacaoId: 6,
         },
     ];
 
